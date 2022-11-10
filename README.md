@@ -21,39 +21,45 @@ Program to implement the simple linear regression model for predicting the marks
 Developed by: Sarankumar J
 RegisterNumber: 212221230087
 
-
-import numpy as np
 import pandas as pd
-dataset=pd.read_csv('/content/student_scores.csv')
-
-X=dataset.iloc[:,:-1].values
-Y=dataset.iloc[:,-1].values
-print(X)
-print(Y)
-
+import numpy as np
+import matplotlib.pyplot as plt
+df=pd.read_csv('student_scores.csv')
+#displaying the content in datafile
+df.head()
+df.tail()
+#segregation data to variables
+X=df.iloc[:,:-1].values
+X
+Y=df.iloc[:,1].values
+Y
+#spliting train and test data
 from sklearn.model_selection import train_test_split
 X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=1/3,random_state=0)
-
 from sklearn.linear_model import LinearRegression
-reg=LinearRegression()
-reg.fit(X_train,Y_train)
+regressor=LinearRegression()
+regressor.fit(X_train,Y_train)
+Y_pred=regressor.predict(X_test)
+#displaying predicted value
+Y_pred
+#displaying actual value
+Y_test
+#graph plot for training data
+plt.scatter(X_train,Y_train,color="orange")
+plt.plot(X_train,regressor.predict(X_train),color="red")
+plt.title("Hours vs Scores(Training Set)")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
+plt.show()
 
-Y_pred=reg.predict(X_test)
-import matplotlib.pyplot as plt
+#graph plot for test data
+plt.scatter(X_test,Y_test,color="purple")
+plt.plot(X_train,regressor.predict(X_train),color="yellow")
+plt.title("Hours vs Scores(Test Set)")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
+plt.show()
 from sklearn.metrics import mean_absolute_error,mean_squared_error
-
-plt.scatter(X_train,Y_train,color='green')
-plt.plot(X_train,reg.predict(X_train),color='red')
-plt.title('training set(h vs s)')
-plt.xlabel('hours')
-plt.ylabel('scores')
-
-plt.scatter(X_test,Y_test,color='red')
-plt.plot(X_test,reg.predict(X_test),color='green')
-plt.title('test set(h vs s)')
-plt.xlabel('hours')
-plt.ylabel('scores')
-
 mse=mean_squared_error(Y_test,Y_pred)
 print('MSC=',mse)
 
@@ -65,8 +71,16 @@ print("RMSE=",rmse)
 ```
 
 ## Output:
-![simple linear regression model for predicting the marks scored](op1.png)
-![simple linear regression model for predicting the marks scored](op2.png)
+![image](https://user-images.githubusercontent.com/94778101/200994040-c8267b66-c706-49f0-a890-8e4dd96838b6.png)
+![image](https://user-images.githubusercontent.com/94778101/200994097-6ba544fd-f86a-4632-9a01-02cf9e5ac129.png)
+![image](https://user-images.githubusercontent.com/94778101/200994118-2577ed97-cd2a-4589-a90f-7653d3b9691a.png)
+![image](https://user-images.githubusercontent.com/94778101/200994190-28de1367-e0a0-463b-a93a-bd948cb35850.png)
+![image](https://user-images.githubusercontent.com/94778101/200994202-8ba7ff34-e479-4593-af8e-50b13dbdd69c.png)
+![image](https://user-images.githubusercontent.com/94778101/200994230-f561bdc8-91d1-48c1-a5f1-1ab42c6e5133.png)
+![image](https://user-images.githubusercontent.com/94778101/200994256-4493e8b5-ae82-47bb-a0b5-83ef428d28a6.png)
+![image](https://user-images.githubusercontent.com/94778101/200994280-8b358bd7-5ebb-4521-9c69-1937553bb4a0.png)
+![image](https://user-images.githubusercontent.com/94778101/200994319-6899499b-04b9-4ad5-b107-82b77a3b7c0e.png)
+
 
 ## Result:
 Thus the program to implement the simple linear regression model for predicting the marks scored is written and verified using python programming.
